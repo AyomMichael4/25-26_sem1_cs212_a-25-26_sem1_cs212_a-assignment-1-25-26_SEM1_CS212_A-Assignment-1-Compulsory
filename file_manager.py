@@ -18,6 +18,7 @@ def display_welcome():
     print("This is a simple file manager to demonstrate")
     print("Python fundamentals: variables, expressions,")
     print("statements, and functions.")
+    print()
     # TODO: Add a blank line after the welcome message
 
 
@@ -45,8 +46,8 @@ def calculate_file_size():
         
         # Calculate size in different units
         # TODO: Fix the code below to perform floating point division
-        size_kb = size_bytes // 1024
-        size_mb = size_kb // 1024
+        size_kb = size_bytes / 1024
+        size_mb = size_kb / 1024
         
         # Display results
         print(f"\nFile: {filename}")
@@ -138,6 +139,17 @@ def process_user_command(choice, running, show_goodbye, goodbye_message,
     Returns:
         bool: Updated running state (False if user chose to quit, True otherwise)
     """
+def get_user_choice():
+    return input("Enter a command: ")
+        
+def process_user_command(
+    choice,
+    running,
+    show_goodbye=True,
+    goodbye_message = "Thank you for using Python CLI File Manager!",
+    invalid_choice_prefix = "Invalid choice:",
+    valid_commands = "help, calc, info, quit"
+):
     if choice == "help":
         display_help()
     elif choice == "calc":
@@ -155,22 +167,30 @@ def process_user_command(choice, running, show_goodbye, goodbye_message,
     
     return running
 
-
-def main():
+def main():  
     """Main program loop."""
-    # Display welcome message
-    # TODO: Call the function to display the welcome message
-    
+    display_welcome()
+    running = True
     # Main command loop
     # TODO: Initialize a variable to control the loop. Hint set running = True
+    # TODO: Call the function to display the welcome message
+    
     while running:
         try:
             choice = get_user_choice()
             
+            
+            running = process_user_command(
+                choice,
+                running,
+                show_goodbye=True,
+                goodbye_message="Thank you for using Python CLI File Manager!",
+                invalid_choice_prefix="Invalid choice:",
+                valid_commands="help, calc, info, quit"
+            )
             # Use the extracted function to process the command
             # This demonstrates calling a function with keyword arguments
-            running = process_user_command(choice, running)
-                
+            
         except KeyboardInterrupt:
             print("\n\nProgram interrupted by user.")
             print("Thank you for using Python CLI File Manager!")
